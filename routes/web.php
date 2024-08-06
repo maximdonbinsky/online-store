@@ -11,5 +11,6 @@ Route::get('/basket', [BasketController::class, 'basket']) -> name('basket');
 Route::get('/basket/placeOrder', [BasketController::class, 'placeOrder']) -> name('placeOrder');
 Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])-> name('basket-add');
 Route::post('/basket/remove/{id}', [BasketController::class, 'basketRemove'])-> name('basket-remove');
+Route::post('/basket/placeOrder', [BasketController::class, 'basketConfirm']) -> name('basket-confirm');
 Route::get('/{category}', [MainController::class, 'category']) -> name('category');
 Route::get('/{category}/{product}', [MainController::class, 'product']) -> name('product');

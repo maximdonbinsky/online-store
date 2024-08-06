@@ -34,9 +34,9 @@
 </nav>
 
 <div class="container">
-
- @yield('content')
-
+    <div class="starter-template">
+        @yield('content')
+    </div>
 </div>
 </body>
 </html>p
