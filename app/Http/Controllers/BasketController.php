@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Order;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -22,7 +24,13 @@ class BasketController extends Controller
             return redirect()->route('index');
         } 
         $order = Order::find($orderId);
-        $result = $order->saveOrder($request->name, $request->phone);
+        $success = $order->saveOrder($request->name, $request->phone);
+        if($success) {
+            session()->flash('success', 'Ваш заказ принят в обработку!');
+        } 
+        else {
+            session()->flash('warning', 'Произошла ошибка!');
+        }
         return redirect()->route('index');
     }
 
@@ -55,6 +63,14 @@ class BasketController extends Controller
             $order->products()->attach($productId);
         }
 
+        if(Auth::check()) {
+            $order->user_id = Auth::id();
+            $order->save();
+        }
+        
+        $product = Product::find($productId);
+        session()->flash('successAdd', 'Товар, ' . $product->name . ', добавлен в корзину!');
+
         return redirect()->route('basket');
     }
 
@@ -76,6 +92,8 @@ class BasketController extends Controller
             $pivotRow->update();
             }
         }
+        $product = Product::find($productId);
+        session()->flash('successRemove', 'Товар, ' . $product->name . ', удален из карзины!');
         
         return redirect()->route('basket');
     }

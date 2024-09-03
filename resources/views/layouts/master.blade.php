@@ -25,6 +25,21 @@
                 <li ><a href="{{ route('basket') }}">В корзину</a></li>
                 <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('user.login') }}">Панель администратора</a>
+                </li>
+                @endguest
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('orders') }}">Панель администратора</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('user.logout') }}">Выйти</a>
+                </li>
+                @endauth
+            </ul>
 
             <!-- <ul class="nav navbar-nav navbar-right">
                 <li><a href="http://laravel-diplom-1.rdavydov.ru/admin/home">Панель администратора</a></li>
@@ -35,6 +50,9 @@
 
 <div class="container">
     <div class="starter-template">
+        @if(session()->has('success')) 
+            <p class="alert alert-success">{{ session()->get('success') }}</p>
+        @endif
         @yield('content')
     </div>
 </div>

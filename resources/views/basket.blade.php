@@ -1,8 +1,14 @@
-@extends('master')
+@extends('layouts/master')
 
 @section('title', 'Корзина')
 
 @section('content')
+    @if(session()->has('successAdd')) 
+        <p class="alert alert-success">{{ session()->get('successAdd') }}</p>
+    @endif
+    @if(session()->has('successRemove')) 
+        <p class="alert alert-warning">{{ session()->get('successRemove') }}</p>
+    @endif
     <h1>Корзина</h1>
     <p>Оформление заказа</p>
     <div class="panel">
@@ -24,7 +30,7 @@
                     </a>
                 </td>
                 <td><span class="badge">{{ $product->pivot->count }}</span>
-                    <div class="btn-group">
+                    <div class="btn-group form-inline">
                         <form action="{{ route('basket-remove', $product) }}" method="POST">
                             <button type="submit" class="btn btn-danger" href=""><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
                         @csrf
