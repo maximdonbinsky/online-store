@@ -1,16 +1,11 @@
 body {
-    padding-top: 70px;
+    padding-top: 40px;
 }
 
 .starter-template {
-    padding: 40px 15px;
+    padding: 20px 15px;
     text-align: center;
 }
-
-.starter-template>img {
-    height: 50vh;
-}
-
 table {
     text-align: left;
 }
@@ -19,6 +14,40 @@ div.thumbnail img {
     max-height: 200px;
 }
 
-.form-inline form {
+div.form-inline form {
     display: inline;
+}
+
+div.labels {
+    position: absolute;
+}
+
+div.labels span.badge {
+    display: block;
+}
+
+span.badge.badge-success {
+    color: #fff;
+    background-color: #28a745;
+}
+
+span.badge.badge-warning {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+span.badge.badge-danger {
+    color: #212529;
+    background-color: #ffc107;
+}
+
+div.filters {
+    padding-bottom: 5px;
+}
+
+footer {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: #99979c;
+    background-color: #2a2730;
 }

@@ -15,10 +15,11 @@ Route::name('user.')->namespace('App\Http\Controllers\Auth')->group(function() {
     Route::post('/register', [RegisterController::class, 'save']) -> name('save');
 });
 
-Route::namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function() {
+Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function() {
     Route::middleware('is_admin')->group(function() {
         Route::get('/orders', [OrderController::class, 'orders']) -> name('orders');
-    });  
+    });
+    Route::resource('categories', 'CategoryController');  
 });
 
 Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])-> name('basket-add');
