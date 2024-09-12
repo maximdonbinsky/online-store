@@ -19,7 +19,8 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('aut
     Route::middleware('is_admin')->group(function() {
         Route::get('/orders', [OrderController::class, 'orders']) -> name('orders');
     });
-    Route::resource('categories', 'CategoryController');  
+    Route::resource('categories', 'CategoryController');
+    Route::resource('products', 'ProductController');  
 });
 
 Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])-> name('basket-add');
