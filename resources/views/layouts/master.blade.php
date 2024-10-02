@@ -20,21 +20,27 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li  class="active" ><a href="{{ route('index') }}">Все товары</a></li>
-                <li ><a href="{{route('categories')}}">Категории</a></li>
-                <li ><a href="{{ route('basket') }}">В корзину</a></li>
+                <li @routeactive('index')><a href="{{ route('index') }}">Все товары</a></li>
+                <li @routeactive('categor*')><a href="{{route('categories')}}">Категории</a></li>
+                <li @routeactive('basket*')><a href="{{ route('basket') }}">В корзину</a></li>
                 <li><a href="{{ route('index') }}">Сбросить проект в начальное состояние</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('user.login') }}">Панель администратора</a>
+                    <a class="nav-link" href="{{ route('user.login') }}">Войти</a>
                 </li>
                 @endguest
                 @auth
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('orders') }}">Панель администратора</a>
-                </li>
+                    @admin
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('orders') }}">Панель администратора</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('person.orders') }}">Мои заказы</a>
+                        </li>
+                    @endadmin
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.logout') }}">Выйти</a>
                 </li>
@@ -50,7 +56,7 @@
 
 <div class="container">
     <div class="starter-template">
-        @if(session()->has('success')) 
+        @if(session()->has('success'))
             <p class="alert alert-success">{{ session()->get('success') }}</p>
         @endif
         @yield('content')

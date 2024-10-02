@@ -6,6 +6,7 @@ use App\Http\Controllers\BasketController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Person\OrderPersonController;
 
 Route::name('user.')->namespace('App\Http\Controllers\Auth')->group(function() {
     Route::get('/login', [LoginController::class, 'login']) -> name('login');
@@ -15,12 +16,19 @@ Route::name('user.')->namespace('App\Http\Controllers\Auth')->group(function() {
     Route::post('/register', [RegisterController::class, 'save']) -> name('save');
 });
 
-Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function() {
-    Route::middleware('is_admin')->group(function() {
-        Route::get('/orders', [OrderController::class, 'orders']) -> name('orders');
+Route::middleware('auth')->group(function() {
+    Route::prefix('person')->namespace('App\Http\Controllers\Person')->as('person.')->group(function() {
+        Route::get('/orders', [OrderPersonController::class, 'orders']) -> name('orders');
+        Route::get('/orders/{order}', [OrderPersonController::class, 'show']) -> name('orders-show');
     });
-    Route::resource('categories', 'CategoryController');
-    Route::resource('products', 'ProductController');  
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function() {
+        Route::middleware('is_admin')->group(function() {
+            Route::get('/orders', [OrderController::class, 'orders']) -> name('orders');
+            Route::get('/orders/{order}', [OrderController::class, 'show']) -> name('orders-show');
+        });
+        Route::resource('categories', 'CategoryController');
+        Route::resource('products', 'ProductController');
+    });
 });
 
 Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])-> name('basket-add');
