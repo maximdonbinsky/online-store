@@ -15,7 +15,7 @@ class Product extends Model
     //     // return Category::find($this->category_id); -- можно и так
     // }
 
-    protected $fillable = ['name', 'code', 'price', 'category_id', 'description', 'image'];
+    protected $fillable = ['name', 'code', 'price', 'category_id', 'description', 'image', 'new', 'hit', 'recommend'];
 
     public function category()
     {
@@ -30,5 +30,35 @@ class Product extends Model
         else {
             return $this->price;
         }
+    }
+
+    public function setNewAttribute ($value)
+    {
+        $this->attributes['new'] = $value === 'on' ? 1 : 0;
+    }
+
+    public function setHitAttribute ($value)
+    {
+        $this->attributes['hit'] = $value === 'on' ? 1 : 0;
+    }
+
+    public function setRecommendAttribute ($value)
+    {
+        $this->attributes['recommend'] = $value === 'on' ? 1 : 0;
+    }
+
+    public function isHit()
+    {
+        return $this->hit === 1;
+    }
+
+    public function isNew()
+    {
+        return $this->new === 1;
+    }
+
+    public function isRecommend()
+    {
+        return $this->recommend === 1;
     }
 }
