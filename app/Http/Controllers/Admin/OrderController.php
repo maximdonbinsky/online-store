@@ -9,7 +9,7 @@ use App\Models\Order;
 class OrderController extends Controller
 {
     public function orders() {
-        $orders = Order::where('status', 1)->get();
+        $orders = Order::where('status', 1)->paginate(10);
         return view('auth.orders.orders', compact('orders'));
     }
 
