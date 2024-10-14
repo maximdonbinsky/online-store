@@ -22,15 +22,18 @@ class BasketController extends Controller
         $orderId = session('orderId');
         if(is_null($orderId)) {
             return redirect()->route('index');
-        } 
+        }
         $order = Order::find($orderId);
         $success = $order->saveOrder($request->name, $request->phone);
         if($success) {
             session()->flash('success', 'Ваш заказ принят в обработку!');
-        } 
+        }
         else {
             session()->flash('warning', 'Произошла ошибка!');
         }
+
+        Order::eraseOrderPrice();
+
         return redirect()->route('index');
     }
 
@@ -67,8 +70,11 @@ class BasketController extends Controller
             $order->user_id = Auth::id();
             $order->save();
         }
-        
+
         $product = Product::find($productId);
+
+        Order::changeFullPrice($product->price);
+
         session()->flash('successAdd', 'Товар, ' . $product->name . ', добавлен в корзину!');
 
         return redirect()->route('basket');
@@ -78,7 +84,7 @@ class BasketController extends Controller
     {
         $orderId = session('orderId');
         if(is_null($orderId)){
-            return view('basket', compact('order')); 
+            return view('basket', compact('order'));
         }
         $order = Order::find($orderId);
 
@@ -86,15 +92,18 @@ class BasketController extends Controller
             $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
             if($pivotRow->count < 2) {
                 $order->products()->detach($productId);
-            } 
+            }
             else {
             $pivotRow->count--;
             $pivotRow->update();
             }
         }
         $product = Product::find($productId);
+
+        Order::changeFullPrice(-$product->price);
+
         session()->flash('successRemove', 'Товар, ' . $product->name . ', удален из карзины!');
-        
+
         return redirect()->route('basket');
     }
 }

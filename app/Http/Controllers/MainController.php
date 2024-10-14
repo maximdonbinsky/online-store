@@ -10,7 +10,7 @@ use App\Models\Product;
 class MainController extends Controller
 {
     public function index(ProductsFilterRequest $request) {
-        $queryProducts = Product::query();
+        $queryProducts = Product::with('category');
         if ($request->filled('price_from')) {
             $queryProducts->where('price', '>=', $request->price_from);
         }

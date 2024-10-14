@@ -3,10 +3,10 @@
 @section('title', 'Корзина')
 
 @section('content')
-    @if(session()->has('successAdd')) 
+    @if(session()->has('successAdd'))
         <p class="alert alert-success">{{ session()->get('successAdd') }}</p>
     @endif
-    @if(session()->has('successRemove')) 
+    @if(session()->has('successRemove'))
         <p class="alert alert-warning">{{ session()->get('successRemove') }}</p>
     @endif
     <h1>Корзина</h1>
@@ -22,7 +22,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($order->products as $product)
+            @foreach($order->products()->with('category')->get() as $product)
             <tr>
                 <td>
                     <a href="{{ route('product', [$product->category->code, $product->code]) }}">
@@ -38,7 +38,7 @@
                         <form action="{{ route('basket-add', $product) }}" method="POST">
                             <button type="submit" class="btn btn-success" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                         @csrf
-                        </form> 
+                        </form>
                     </div>
                 </td>
                 <td>{{$product->price}}</td>
