@@ -19,7 +19,7 @@ class MainController extends Controller
         }
         foreach (['hit', 'new', 'recommend'] as $field) {
             if ($request->has($field)) {
-                $queryProducts->where($field, 1);
+                $queryProducts->$field();
             }
         }
 
@@ -37,8 +37,8 @@ class MainController extends Controller
         return view('category', compact('category'));
     }
 
-    public function product($category, $product = null) {
-        // dump($product);
-        return view('product', ['product' => $product]);
+    public function product($category, $productCode) {
+        $product = Product::withTrashed()->byCode($productCode)->first();
+        return view('product', compact('product'));
     }
 }

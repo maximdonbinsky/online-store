@@ -18,9 +18,10 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="http://laravel-diplom-1.rdavydov.ru/css/app.css" rel="stylesheet">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
     <link href="/css/admin.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 <div id="app">
@@ -35,7 +36,7 @@
                     @admin
                     <li ><a href="{{ route('categories.index') }}">Категории</a></li>
                     <li ><a href="{{ route('products.index') }}">Товары</a></li>
-                    <li ><a href="http://laravel-diplom-1.rdavydov.ru/admin/orders">Заказы</a></li>
+                    <li ><a href="{{ route('orders') }}">Заказы</a></li>
                     @endadmin
 
                 </ul>
@@ -65,8 +66,6 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">@yield('title')</div>
-
                         <div class="card-body">
                             @yield('content')
                         </div>

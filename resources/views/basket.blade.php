@@ -22,6 +22,7 @@
             </tr>
             </thead>
             <tbody>
+            @dd($order->products);
             @foreach($order->products()->with('category')->get() as $product)
             <tr>
                 <td>

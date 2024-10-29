@@ -24,6 +24,9 @@
                     Цена
                 </th>
                 <th>
+                    Кол-во
+                </th>
+                <th>
                     Действия
                 </th>
             </tr>
@@ -34,10 +37,11 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>
                     <td>{{ $product->price }}</td>
-                    <td>
+                    <td>{{ $product->count }}</td>
+                    <td class="form-product">
                         <div class="btn-group" role="group">
                             <form action="{{ route('products.destroy', $product) }}" method="POST">
-                                <a class="btn btn-success" type="button"
+                                <a class="btn btn-success " type="button"
                                    href="{{ route('products.show', $product) }}">Открыть</a>
                                 <a class="btn btn-warning" type="button"
                                    href="{{ route('products.edit', $product) }}">Редактировать</a>

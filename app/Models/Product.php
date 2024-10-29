@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
     use HasFactory;
 
     // public function getCategory()
@@ -15,7 +17,7 @@ class Product extends Model
     //     // return Category::find($this->category_id); -- можно и так
     // }
 
-    protected $fillable = ['name', 'code', 'price', 'category_id', 'description', 'image', 'new', 'hit', 'recommend'];
+    protected $fillable = ['name', 'code', 'price', 'category_id', 'description', 'image', 'new', 'hit', 'recommend', 'count'];
 
     public function category()
     {
@@ -32,6 +34,22 @@ class Product extends Model
         }
     }
 
+    public function scopeByCode($query, $code) {
+        return $this->where('code', $code);
+    }
+
+    public function scopeHit($query) {
+        return $query->where('hit', 1);
+    }
+
+    public function scopeNew($query) {
+        return $query->where('new', 1);
+    }
+
+    public function scopeRecommend($query) {
+        return $query->where('recommend', 1);
+    }
+
     public function setNewAttribute ($value)
     {
         $this->attributes['new'] = $value === 'on' ? 1 : 0;
@@ -45,6 +63,11 @@ class Product extends Model
     public function setRecommendAttribute ($value)
     {
         $this->attributes['recommend'] = $value === 'on' ? 1 : 0;
+    }
+
+    public function isAvailable()
+    {
+        return !$this->trashed() && $this->count > 0;
     }
 
     public function isHit()

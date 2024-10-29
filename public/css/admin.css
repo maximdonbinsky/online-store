@@ -4,6 +4,14 @@ div.input-group select.form-control {
 .justify-content-center {
     display: flex;
     justify-content: center;
-    
-    
 }
+.form-product {
+    width: 150px;
+}
+.form-product a, .form-product input{
+    width: 150px;
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+
