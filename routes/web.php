@@ -31,12 +31,12 @@ Route::middleware('auth')->group(function() {
     });
 });
 
-Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])-> name('basket-add');
+Route::post('/basket/add/{product}', [BasketController::class, 'basketAdd'])-> name('basket-add');
 
 Route::middleware('basket_not_empty')->group(function() {
     Route::get('/basket', [BasketController::class, 'basket']) -> name('basket');
     Route::get('/basket/placeOrder', [BasketController::class, 'placeOrder']) -> name('placeOrder');
-    Route::post('/basket/remove/{id}', [BasketController::class, 'basketRemove'])-> name('basket-remove');
+    Route::post('/basket/remove/{product}', [BasketController::class, 'basketRemove'])-> name('basket-remove');
     Route::post('/basket/placeOrder', [BasketController::class, 'basketConfirm']) -> name('basket-confirm');
 });
 
