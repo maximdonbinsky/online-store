@@ -2,28 +2,28 @@
     <div class="thumbnail">
         <div class="labels">
             @if($product->isNew())
-                <span class="badge badge-success">Новинка</span>
+                <span class="badge badge-success">@lang('main.labels.new')</span>
             @endif
             @if($product->isHit())
-                <span class="badge badge-warning">Хит продаж</span>
+                <span class="badge badge-warning">@lang('main.labels.hit')</span>
             @endif
             @if($product->isRecommend())
-                <span class="badge badge-danger">Рекомендуем</span>
+                <span class="badge badge-danger">@lang('main.labels.recommend')</span>
             @endif
         </div>
-        <img src="{{ Storage::url($product->image) }}" alt="iPhone X 64GB">
+        <img src="{{ Storage::url($product->image) }}" alt="{{ $product->__('name') }}">
         <div class="caption">
-            <h3>{{ $product->name }}</h3>
+            <h3>{{ $product->__('name') }}</h3>
             <p>{{ $product->price }}</p>
             <p>
                 <form action="{{ route('basket-add', $product->id) }}" method="POST">
                     @if($product->isAvailable())
-                        <button type="submit" class="btn btn-primary" role="button">В корзину</button>
+                        <button type="submit" class="btn btn-primary" role="button">@lang('main.in_the_basket')</button>
                     @else
-                        Нет в наличии
+                        @lang('main.out_of_stock')
                     @endif
                     <a href="{{ route('product', [isset($category) ? $category->code : $product->category->code, $product->code]) }}" class="btn btn-default"
-                       role="button">Подробнее</a>
+                       role="button">@lang('main.detailed')</a>
                     @csrf
                 </form>
             </p>

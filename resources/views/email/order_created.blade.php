@@ -1,5 +1,5 @@
-<p>Уважаемый {{ $name }}</p>
-<p>Ваш заказ на сумму {{ $fullSum }} создан</p>
+<p>@lang('email.respected') {{ $name }}</p>
+<p>@lang('email.sum') {{ $fullSum }} @lang('email.created')</p>
 <table>
     <tbody>
     @foreach($order->products as $product)
@@ -7,12 +7,12 @@
             <td>
                 <a href="{{ route('product', [$product->category->code, $product->code]) }}">
                     <img height="56px" src="{{ Storage::url($product->image) }}">
-                    {{ $product->name }}
+                    {{ $product->__('name') }}
                 </a>
             </td>
             <td><span class="badge">{{ $product->pivot->count }}</span>
                 <div class="btn-group form-inline">
-                    {!! $product->description !!}
+                    {!! $product->__('description') !!}
                 </div>
             </td>
             <td>{{ $product->price }} руб.</td>

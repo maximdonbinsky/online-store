@@ -24,10 +24,10 @@ class BasketController extends Controller
         $success = (new Basket())->saveOrder($request->name, $request->phone, $email);
 
         if($success) {
-            session()->flash('success', 'Ваш заказ принят в обработку!');
+            session()->flash('success', __('basket.order_processing'));
         }
         else {
-            session()->flash('successRemove', 'Товар недоступен для заказа в полном объеме!');
+            session()->flash('successRemove', __('basket.not_available_full'));
         }
 
         Order::eraseOrderPrice();
@@ -40,7 +40,7 @@ class BasketController extends Controller
         $basket = new Basket();
         $order = $basket->getOrder();
         if (!$basket->countAvailable()) {
-            session()->flash('successRemove', 'Товар недоступен для заказа в полном объеме!');
+            session()->flash('successRemove', __('basket.not_available_full'));
             return redirect()->route('basket');
         }
         return view('placeOrder', compact('order'));
@@ -51,10 +51,10 @@ class BasketController extends Controller
         $result = (new Basket(true))->addProduct($product);
 
         if ($result) {
-            session()->flash('successAdd', 'Товар, ' . $product->name . ', добавлен в корзину!');
+            session()->flash('successAdd', __('basket.the_product') . $product->name . __('basket.added_cart'));
         }
         else {
-            session()->flash('successRemove', 'Товар, ' . $product->name . ', недоступен для заказа!');
+            session()->flash('successRemove', __('basket.the_product') . $product->name . __('basket.not_available_full'));
         }
 
         return redirect()->route('basket');
@@ -64,7 +64,7 @@ class BasketController extends Controller
     {
         (new Basket())->removeProduct($product);
 
-        session()->flash('successRemove', 'Товар, ' . $product->name . ', удален из карзины!');
+        session()->flash('successRemove', __('basket.the_product') . $product->name . __('basket.removed_cart'));
 
         return redirect()->route('basket');
     }

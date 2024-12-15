@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title', 'Корзина')
+@section('title', __('main.basket'))
 
 @section('content')
     @if(session()->has('successAdd'))
@@ -9,16 +9,16 @@
     @if(session()->has('successRemove'))
         <p class="alert alert-warning">{{ session()->get('successRemove') }}</p>
     @endif
-    <h1>Корзина</h1>
-    <p>Оформление заказа</p>
+    <h1>@lang('main.basket')</h1>
+    <p>@lang('basket.making_an_order')</p>
     <div class="panel">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Название</th>
-                <th>Кол-во</th>
-                <th>Цена</th>
-                <th>Стоимость</th>
+                <th>@lang('basket.name')</th>
+                <th>@lang('basket.quantity')</th>
+                <th>@lang('basket.price')</th>
+                <th>@lang('basket.total')</th>
             </tr>
             </thead>
             <tbody>
@@ -46,14 +46,14 @@
             </tr>
             @endforeach
             <tr>
-                <td colspan="3">Общая стоимость:</td>
+                <td colspan="3">@lang('basket.total_cost')</td>
                 <td>{{ $order->getFullPrice() }}</td>
             </tr>
             </tbody>
         </table>
         <br>
         <div class="btn-group pull-right" role="group">
-            <a type="button" class="btn btn-success" href="{{ route('placeOrder') }}">Оформить заказ</a>
+            <a type="button" class="btn btn-success" href="{{ route('placeOrder') }}">@lang('basket.place_an_order')</a>
         </div>
     </div>
 @endsection
