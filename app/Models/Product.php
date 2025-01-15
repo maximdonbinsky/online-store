@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\CurrencyConversion;
 use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -85,5 +86,10 @@ class Product extends Model
     public function isRecommend()
     {
         return $this->recommend === 1;
+    }
+
+    public function getPriceAttribute($value)
+    {
+        return round(CurrencyConversion::convert($value), 2);
     }
 }

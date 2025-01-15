@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductsFilterRequest;
 use App\Http\Requests\SubscriptionRequest;
+use App\Models\Currency;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\App;
+use function Symfony\Component\String\s;
 
 class MainController extends Controller
 {
     public function index(ProductsFilterRequest $request) {
+
         $queryProducts = Product::with('category');
         if ($request->filled('price_from')) {
             $queryProducts->where('price', '>=', $request->price_from);
@@ -62,6 +65,13 @@ class MainController extends Controller
         }
         session(['locale' => $locale]);
         App::setLocale($locale);
+        return redirect()->back();
+    }
+
+    public function changeCurrency($currencyCode)
+    {
+        $currency = Currency::byCode($currencyCode)->firstOrFail();
+        session(['currency' => $currency->code]);
         return redirect()->back();
     }
 }

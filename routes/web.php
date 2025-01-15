@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Person\OrderPersonController;
 
 Route::get('locale/{locale}', [MainController::class, 'changeLocale']) -> name('locale');
+Route::get('currency/{currencyCode}', [MainController::class, 'changeCurrency']) -> name('currency');
 
 Route::middleware('set_locale')->group(function () {
     Route::name('user.')->namespace('App\Http\Controllers\Auth')->group(function() {

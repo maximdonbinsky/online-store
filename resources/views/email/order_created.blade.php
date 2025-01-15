@@ -15,8 +15,8 @@
                     {!! $product->__('description') !!}
                 </div>
             </td>
-            <td>{{ $product->price }} руб.</td>
-            <td>{{ $product->getPriceForCount() }} руб.</td>
+            <td>{{ $product->price }} {{ App\Classes\CurrencyConversion::getCurrencySymbol() }}</td>
+            <td>{{ $product->getPriceForCount() }} {{ App\Classes\CurrencyConversion::getCurrencySymbol() }}</td>
         </tr>
     @endforeach
     </tbody>

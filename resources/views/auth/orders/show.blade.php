@@ -28,13 +28,13 @@
                                     </a>
                                 </td>
                                 <td><span class="badge">{{ $product->pivot->count }}</span></td>
-                                <td>{{ $product->price }} руб.</td>
-                                <td>{{ $product->getPriceForCount()}} руб.</td>
+                                <td>{{ $product->price }} {{ App\Classes\CurrencyConversion::getCurrencySymbol() }}</td>
+                                <td>{{ $product->getPriceForCount()}} {{ App\Classes\CurrencyConversion::getCurrencySymbol() }}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <td colspan="3">Общая стоимость:</td>
-                            <td>{{ $order->calculateFullPrice() }} руб.</td>
+                            <td>{{ $order->calculateFullPrice() }} {{ App\Classes\CurrencyConversion::getCurrencySymbol() }}</td>
                         </tr>
                         </tbody>
                     </table>
