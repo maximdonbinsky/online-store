@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\BasketController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Person\OrderPersonController;
 
 Route::get('locale/{locale}', [MainController::class, 'changeLocale']) -> name('locale');
 Route::get('currency/{currencyCode}', [MainController::class, 'changeCurrency']) -> name('currency');
+Route::get('/reset', [ResetController::class, 'reset']) ->name('reset');
 
 Route::middleware('set_locale')->group(function () {
     Route::name('user.')->namespace('App\Http\Controllers\Auth')->group(function() {

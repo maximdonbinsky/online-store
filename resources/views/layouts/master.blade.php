@@ -33,6 +33,7 @@
                         @endforeach
                     </ul>
                 </li>
+                <li><a href="{{ route('reset') }}">Reset</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @guest
